@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="mr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fataka Bazaar</title>
+<meta name="description" content="Fataka Bazaar Wholesale Depot - Pimpri Chinchwad, Pune. Fixed rate crackers, order on WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700;800&family=Yatra+One&display=swap" rel="stylesheet">
+<link rel="icon" href="images/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cart">
+<div id="site-header"></div>
+<main>
+<section class="page-hero hero-cart">
+  <canvas class="fw-canvas"></canvas>
+  <span class="orb" style="width:340px;height:340px;background:#8b5cf6;left:-80px;top:10%"></span>
+  <span class="orb" style="width:300px;height:300px;background:#e11d48;right:-60px;bottom:8%;animation-delay:-3s"></span>
+  <div class="container hero-inner">
+    <span class="eyebrow" data-i18n="hero_cart_eb"></span>
+    <h1 data-i18n="hero_cart_t"></h1>
+    <p data-i18n="hero_cart_p"></p>
+  </div>
+  <a class="scroll-cue" href="#start"><span data-i18n="scroll"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+</section>
+<span id="start"></span>
+<section class="section "><div class="container">
+<div id="cartEmpty" class="empty" hidden><h3 style="font-size:2rem;color:var(--gold)" data-i18n="cart_empty"></h3><p data-i18n="cart_empty_p"></p><a class="btn btn-gold" href="products.html" data-i18n="shop_now"></a></div>
+<div class="cart-layout" id="cartLayout" hidden>
+  <div>
+    <div class="sec-title" style="text-align:left;margin-bottom:22px"><h2 data-i18n="cart_items_t"></h2></div>
+    <div class="cart-list" id="cartList"></div>
+    <div class="btn-row" style="margin-top:20px"><a class="btn btn-outline" href="products.html" data-i18n="continue_shop"></a><button class="btn btn-outline" id="clearCart" type="button" data-i18n="clear_cart"></button></div>
+  </div>
+  <div class="cart-side">
+    <div class="panel" id="details">
+      <h3 data-i18n="cust_t"></h3>
+      <div class="cf-row">
+        <div class="field"><label data-i18n="f_name"></label><input id="cName" autocomplete="name"><span class="em"></span></div>
+        <div class="field"><label data-i18n="f_mobile"></label><input id="cMobile" type="tel" inputmode="numeric" autocomplete="tel"><span class="em"></span></div>
+      </div>
+      <div class="field"><label data-i18n="f_mode"></label><div class="radios"><label><input type="radio" name="mode" value="delivery" checked><span data-i18n="f_delivery"></span></label><label><input type="radio" name="mode" value="pickup"><span data-i18n="f_pickup"></span></label></div></div>
+      <div class="cf-row cf-row2">
+        <div class="field" id="addrWrap"><label data-i18n="f_addr"></label><textarea id="cAddr" rows="2"></textarea><span class="em"></span></div>
+        <div class="field"><label data-i18n="f_note"></label><textarea id="cNote" rows="2"></textarea></div>
+      </div>
+    </div>
+    <div class="panel" id="summary">
+      <h3 data-i18n="sum_t"></h3>
+      <div class="sum-row"><span data-i18n="sum_items"></span><b id="sumCount"></b></div>
+      <div class="sum-row"><span data-i18n="sum_sub"></span><b id="sumSub"></b></div>
+      <div class="sum-row disc" id="rowDisc"><span id="sumDiscLbl"></span><b id="sumDisc"></b></div>
+      <div class="sum-row total"><span data-i18n="sum_total"></span><b id="sumTotal"></b></div>
+      <div class="hint" id="hint"></div>
+      <div class="coupon"><input id="coupon" data-i18n-ph="coupon_ph" autocomplete="off"><button class="btn btn-outline" id="applyCoupon" type="button" data-i18n="coupon_apply"></button></div>
+      <div class="cmsg" id="cMsg"></div>
+      <button class="btn btn-wa" id="orderBtn" type="button" style="width:100%" data-i18n="order_wa"></button>
+      <p class="note" data-i18n="est_note"></p>
+    </div>
+  </div>
+  <div class="side-promo cart-promo"><img src="images/banners/hero1.svg" alt=""><div><b data-i18n="wish_t"></b><ul><li data-i18n="ft2_t"></li><li data-i18n="ft3_t"></li><li data-i18n="ft4_t"></li></ul></div></div>
+</div>
+</div></section>
+<section class="section alt"><div class="container">
+<div class="sec-title reveal"><h2 data-i18n="sugg_t"></h2></div><div class="p-grid" id="suggGrid"></div>
+</div></section>
+</main>
+<div id="site-footer"></div>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
