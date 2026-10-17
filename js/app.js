@@ -22,6 +22,8 @@
   var findP = function (id) { return getProducts().find(function (p) { return p.id === id; }); };
   var catOf = function (id) { return CATEGORIES.find(function (c) { return c.id === id; }) || CATEGORIES[0]; };
   var waLink = function (msg) { return 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(msg); };
+  var enqHello = function () { return MSG[lang].hello; };
+  var closeMenu = function () { };
   var renderers = [];
   var cartHooks = [];
 
@@ -40,6 +42,7 @@
     truck: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.500" cy="18.500" r="2.500"/><circle cx="18.500" cy="18.500" r="2.500"/></svg>',
     shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>',
     heart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M20.800 4.600a5.500 5.500 0 0 0-7.800 0L12 5.700l-1-1.100a5.500 5.500 0 0 0-7.800 7.800l1 1.100L12 21.200l7.800-7.700 1-1.100a5.500 5.500 0 0 0 0-7.800z"/></svg>',
+    close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
     down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.500" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>'
   };
   var LOGO = '<img class="logo-img" src="images/logo.png" alt="फटाका बाजार">';
@@ -61,32 +64,32 @@
       '<div class="hdr-actions">' + searchBox('') +
       '<button class="lang-btn" id="langBtn" type="button" aria-label="Translate">' + IC.globe + '<span>English</span></button>' +
       '<button class="icon-btn" id="cartBtn" type="button" aria-label="Cart">' + IC.bag + '<b class="badge" id="badge">0</b></button>' +
-      '<a class="icon-btn wa" href="' + waLink('🙏 ' + CONFIG.shop.mr) + '" target="_blank" rel="noopener" aria-label="WhatsApp">' + IC.wa + '</a>' +
+      '<a class="icon-btn wa wa-enq" href="' + waLink(enqHello()) + '" target="_blank" rel="noopener" aria-label="WhatsApp">' + IC.wa + '</a>' +
       '<button class="icon-btn burger" id="burger" type="button" aria-label="Menu">' + IC.menu + '</button>' +
       '</div></div></header>';
 
     var f = $('#site-footer');
     var catLinks = CATEGORIES.map(function (c) { return '<li><a href="category.html?cat=' + c.id + '" class="ftcat" data-cat="' + c.id + '"></a></li>'; }).join('');
     if (f) f.outerHTML = '<footer class="site-footer">' +
-      '<div class="ft-cta"><div class="container"><div><h3 data-i18n="ft_cta_t"></h3><p data-i18n="ft_cta_p"></p></div><a class="btn btn-wa" target="_blank" rel="noopener" href="' + waLink('🙏 ' + CONFIG.shop.mr) + '">' + IC.wa.replace('<svg', '<svg width="20" height="20"') + ' WhatsApp</a></div></div>' +
+      '<div class="ft-cta"><div class="container"><div><h3 data-i18n="ft_cta_t"></h3><p data-i18n="ft_cta_p"></p></div><a class="btn btn-wa wa-enq" target="_blank" rel="noopener" href="' + waLink(enqHello()) + '">' + IC.wa.replace('<svg', '<svg width="20" height="20"') + ' WhatsApp</a></div></div>' +
       '<div class="container ft-grid">' +
       '<div class="ft-about"><a class="brand" href="index.html">' + LOGO + '<div>फटाका बाजार<small>FATAKA BAZAAR</small></div></a><p data-i18n="ft_about"></p><p style="color:var(--gold);font-weight:700" data-i18n="since"></p></div>' +
       '<div><h4 data-i18n="ft_links"></h4><ul>' + NAV.map(function (n) { return '<li><a href="' + n[0] + '" data-i18n="' + n[1] + '"></a></li>'; }).join('') + '<li><a href="cart.html" data-i18n="nav_cart"></a></li></ul></div>' +
       '<div class="ft-cats"><h4 data-i18n="ft_cats"></h4><ul class="ft-catlist">' + catLinks + '</ul></div>' +
       '<div class="ft-contact"><h4 data-i18n="ft_contact"></h4>' +
-      '<div class="ft-line">' + IC.pin + '<span><b data-i18n="br1"></b>: <span data-i18n="b1a"></span></span></div>' +
-      '<div class="ft-line">' + IC.pin + '<span><b data-i18n="br2"></b>: <span data-i18n="b2a"></span></span></div>' +
+      '<div class="ft-line">' + IC.pin + '<span><b data-i18n="br1"></b>: <a target="_blank" rel="noopener" href="https://maps.google.com/?q=Sai+Hospital+Sane+Chowk+Pune" data-i18n="b1a"></a></span></div>' +
+      '<div class="ft-line">' + IC.pin + '<span><b data-i18n="br2"></b>: <a target="_blank" rel="noopener" href="https://maps.google.com/?q=Cotton+King+Krishnanagar+Pune" data-i18n="b2a"></a></span></div>' +
       '<div class="ft-line">' + IC.phone + '<span>' + CONFIG.phones.map(function (n) { return '<a href="tel:+91' + n + '">' + n + '</a>'; }).join(' / ') + '</span></div>' +
       '<div class="ft-line">' + IC.clock + '<span id="ftHours"></span></div></div>' +
       '</div><div class="ft-bottom"><div class="container"><span class="tip" data-i18n="ft_tip"></span><span data-i18n="ft_safe"></span><br><span data-i18n="ft_copy"></span></div></div></footer>' +
-      '<a class="wa-float" target="_blank" rel="noopener" href="' + waLink('🙏 ' + CONFIG.shop.mr) + '" aria-label="WhatsApp">' + IC.wa + '</a>';
+      '<a class="wa-float wa-enq" target="_blank" rel="noopener" href="' + waLink(enqHello()) + '" aria-label="WhatsApp">' + IC.wa + '</a>';
 
     var shell = document.createElement('div');
     shell.innerHTML = '<div class="overlay" id="overlay"></div>' +
       '<aside class="drawer" id="drawer" aria-label="Cart"><div class="drawer-head"><h3 data-i18n="dr_title"></h3><button class="x-btn" data-close type="button" aria-label="close">✕</button></div>' +
       '<div class="drawer-body" id="drawerBody"></div>' +
       '<div class="drawer-foot" id="drawerFoot"><div class="sum-row"><span data-i18n="sum_sub"></span><b id="dSub"></b></div><div class="sum-row disc" id="dDiscRow"><span data-i18n="sum_disc"></span><b id="dDisc"></b></div><div class="sum-row total"><span data-i18n="sum_total"></span><b id="dTotal"></b></div>' +
-      '<div class="btn-row"><a class="btn btn-outline" href="cart.html" data-i18n="dr_view"></a><a class="btn btn-gold" href="cart.html#details" data-i18n="dr_checkout"></a></div></div></aside>' +
+      '<div class="btn-row"><a class="btn btn-outline" href="cart.html" data-i18n="dr_view"></a><a class="btn btn-gold" href="cart.html" data-i18n="dr_checkout"></a></div></div></aside>' +
       '<div class="modal" id="pModal"><div class="modal-box"><button class="x-btn" data-close type="button" aria-label="close">✕</button><div class="m-grid" id="modalBody"></div></div></div>' +
       '<div class="modal thanks" id="thanks"><div class="modal-box"><h3 data-i18n="ty_t"></h3><p id="thanksP"></p><button class="btn btn-gold" id="thanksBtn" type="button" data-i18n="ty_btn"></button><div><span class="diya"></span><span class="diya"></span><span class="diya"></span></div></div></div>' +
       '<div class="toast" id="toast"></div>';
@@ -102,9 +105,9 @@
 
   /* ---------- cart ---------- */
   var cart = LSget('fb_cart', {});
-  var coupon = LSget('fb_coupon', '');
+  var coupon = '';
   function saveCart() {
-    LSset('fb_cart', cart); LSset('fb_coupon', coupon);
+    LSset('fb_cart', cart);
     updateBadge(true); renderDrawer(); cartHooks.forEach(function (f) { f(); });
   }
   function addToCart(id, q) { cart[id] = Math.min((cart[id] || 0) + (q || 1), 999); saveCart(); }
@@ -122,7 +125,7 @@
     var items = cartItems();
     var sub = items.reduce(function (a, i) { return a + i.line; }, 0);
     var pct = 0; CONFIG.discountTiers.forEach(function (d) { if (sub >= d.min) pct = Math.max(pct, d.pct); });
-    var cp = (coupon && CONFIG.coupons[coupon]) || 0;
+    var cp = 0;
     var disc = Math.round(sub * (pct + cp) / 100);
     return { items: items, sub: sub, pct: pct, cpct: cp, disc: disc, total: sub - disc, count: items.reduce(function (a, i) { return a + i.q; }, 0) };
   }
@@ -156,7 +159,7 @@
 
   /* ---------- product modal ---------- */
   function enqMsgProduct(p) {
-    return '🪔 ' + L(CONFIG.shop) + '\n' + (lang === 'mr' ? 'चौकशी: ' : 'Enquiry: ') + L(p) + (p.price ? ' (' + money(p.price) + ')' : '') + '\n🙏';
+    return L(CONFIG.shop) + '\n' + (lang === 'mr' ? 'चौकशी: ' : 'Enquiry: ') + L(p) + (p.price ? ' (' + money(p.price) + ')' : '');
   }
   function openModal(id) {
     var p = findP(id); if (!p) return;
@@ -207,14 +210,21 @@
       }
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') { closeDrawer(); closeModal(); }
+      if (e.key === 'Escape') { closeDrawer(); closeModal(); closeMenu(); }
       if (e.key === 'Enter' && e.target.classList && e.target.classList.contains('p-card')) openModal(e.target.dataset.id);
     });
     var hdr = $('#hdr');
     var onScroll = function () { hdr.classList.toggle('scrolled', window.scrollY > 10); };
     window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
-    $('#burger').onclick = function () { $('#nav').classList.toggle('open'); };
-    $$('#nav a').forEach(function (a) { a.addEventListener('click', function () { $('#nav').classList.remove('open'); }); });
+    var burger = $('#burger'), navEl = $('#nav');
+    function setMenu(open) {
+      navEl.classList.toggle('open', open); burger.classList.toggle('is-open', open);
+      burger.innerHTML = open ? IC.close : IC.menu; burger.setAttribute('aria-label', open ? 'Close' : 'Menu'); burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    closeMenu = function () { setMenu(false); };
+    burger.onclick = function () { setMenu(!navEl.classList.contains('open')); };
+    $$('#nav a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+    window.addEventListener('resize', function () { if (window.innerWidth > 980) setMenu(false); });
     $('#langBtn').onclick = function () { lang = lang === 'mr' ? 'en' : 'mr'; LSset('fb_lang', lang); applyStatic(); renderers.forEach(function (f) { f(); }); observeReveal(); };
     $('#thanksBtn').onclick = function () { closeModal(); if (thanksType === 'order') { cart = {}; coupon = ''; saveCart(); } };
     $$('.search').forEach(initSearch);
@@ -229,7 +239,7 @@
       sug.innerHTML = res.map(function (p) { return '<button type="button" data-pid="' + p.id + '"><span>' + esc(L(p)) + '</span><b>' + (p.price ? money(p.price) : '') + '</b></button>'; }).join('');
       sug.classList.toggle('show', res.length > 0);
     });
-    sug.addEventListener('click', function (e) { var b = e.target.closest('[data-pid]'); if (b) { sug.classList.remove('show'); inp.value = ''; openModal(b.dataset.pid); } });
+    sug.addEventListener('click', function (e) { var b = e.target.closest('[data-pid]'); if (b) { sug.classList.remove('show'); inp.value = ''; closeMenu(); openModal(b.dataset.pid); } });
     inp.addEventListener('keydown', function (e) { if (e.key === 'Enter' && inp.value.trim()) location.href = 'products.html?q=' + encodeURIComponent(inp.value.trim()); });
     $('button', box).addEventListener('click', function () { if (inp.value.trim()) location.href = 'products.html?q=' + encodeURIComponent(inp.value.trim()); });
     document.addEventListener('click', function (e) { if (!box.contains(e.target)) sug.classList.remove('show'); });
@@ -244,6 +254,7 @@
     $$('.ftcat').forEach(function (a) { a.textContent = L(catOf(a.dataset.cat)); });
     var fh = $('#ftHours'); if (fh) fh.textContent = L(CONFIG.hours);
     document.title = (page === 'category' ? L(catOf(qs.get('cat') || 'crackers')) : t('title_' + page)) + ' | ' + L(CONFIG.shop);
+    $$('.wa-enq').forEach(function (a) { a.href = waLink(enqHello()); });
     renderDrawer();
   }
 
@@ -288,25 +299,23 @@
 
   /* ---------- WhatsApp message templates ---------- */
   var MSG = {
-    mr: { greet: '🪔 *शुभ दिवाळी!* 🪔', order: '*फटाका बाजार होलसेल डेपो* – नवीन ऑर्डर', enq: '*फटाका बाजार होलसेल डेपो* – चौकशी', name: 'नाव', mobile: 'मोबाईल', opt: 'पर्याय', del: 'डिलिव्हरी', pick: 'पिकअप', addr: 'पत्ता', details: 'ऑर्डर तपशील', sub: 'एकूण किंमत', disc: 'सवलत', fin: 'अंतिम रक्कम', note: 'सूचना', subj: 'विषय', msg: 'संदेश', confirm: 'कृपया उपलब्धता, डिलिव्हरी/पिकअप व पेमेंटची माहिती कळवावी.', thxO: '🙏 ऑर्डर दिल्याबद्दल धन्यवाद! आपणास व आपल्या परिवारास दिवाळीच्या हार्दिक शुभेच्छा! 🎆', thxE: '🙏 चौकशी केल्याबद्दल धन्यवाद! आपणास व आपल्या परिवारास दिवाळीच्या हार्दिक शुभेच्छा! 🎆' },
-    en: { greet: '🪔 *Happy Diwali!* 🪔', order: '*Fataka Bazaar Wholesale Depot* – New Order', enq: '*Fataka Bazaar Wholesale Depot* – Enquiry', name: 'Name', mobile: 'Mobile', opt: 'Preference', del: 'Delivery', pick: 'Pickup', addr: 'Address', details: 'Order details', sub: 'Subtotal', disc: 'Discount', fin: 'Final amount', note: 'Note', subj: 'Subject', msg: 'Message', confirm: 'Please confirm availability, delivery/pickup and payment details.', thxO: '🙏 Thank you for your order! Wishing you and your family a very Happy Diwali! 🎆', thxE: '🙏 Thank you for your enquiry! Wishing you and your family a very Happy Diwali! 🎆' }
+    mr: { greet: '*शुभ दिवाळी!*', hello: 'शुभ दिवाळी! नमस्कार, मला फटाक्यांची चौकशी करायची आहे. कृपया उपलब्ध माल व दर कळवावेत.', order: '*फटाका बाजार होलसेल डेपो* – नवीन ऑर्डर', enq: '*फटाका बाजार होलसेल डेपो* – चौकशी', name: 'नाव', mobile: 'मोबाईल', opt: 'पर्याय', del: 'डिलिव्हरी', pick: 'पिकअप', addr: 'पत्ता', details: 'ऑर्डर तपशील', sub: 'एकूण किंमत', disc: 'सवलत', fin: 'अंतिम रक्कम', note: 'सूचना', subj: 'विषय', msg: 'संदेश', confirm: 'कृपया उपलब्धता, डिलिव्हरी/पिकअप व पेमेंटची माहिती कळवावी.', thxO: '', thxE: '' },
+    en: { greet: '*Happy Diwali!*', hello: 'Happy Diwali! Hello, I would like to enquire about firecrackers. Please share the available items and rates.', order: '*Fataka Bazaar Wholesale Depot* – New Order', enq: '*Fataka Bazaar Wholesale Depot* – Enquiry', name: 'Name', mobile: 'Mobile', opt: 'Preference', del: 'Delivery', pick: 'Pickup', addr: 'Address', details: 'Order details', sub: 'Subtotal', disc: 'Discount', fin: 'Final amount', note: 'Note', subj: 'Subject', msg: 'Message', confirm: 'Please confirm availability, delivery/pickup and payment details.', thxO: '', thxE: '' }
   };
-  function buildOrderMsg(f, tot) {
-    var m = MSG[lang], del = f.mode === 'delivery';
-    var lines = tot.items.map(function (i, n) { return (n + 1) + '. ' + L(i.p) + ' × ' + i.q + ' = ' + money(i.line); });
-    var out = [m.greet, m.order, '', '👤 ' + m.name + ': ' + f.name, '📞 ' + m.mobile + ': ' + f.mobile, '🚚 ' + m.opt + ': ' + (del ? m.del : m.pick)];
-    if (del) out.push('📍 ' + m.addr + ': ' + f.addr);
-    out.push('', '🛒 *' + m.details + '*'); out = out.concat(lines);
-    out.push('', '💰 ' + m.sub + ': ' + money(tot.sub));
-    if (tot.disc) out.push('🎁 ' + m.disc + ' (' + (tot.pct + tot.cpct) + '%): -' + money(tot.disc));
-    out.push('✅ *' + m.fin + ': ' + money(tot.total) + '*');
-    if (f.note) out.push('', '📝 ' + m.note + ': ' + f.note);
-    out.push('', m.confirm, '', m.thxO);
+  function buildOrderMsg(tot) {
+    var m = MSG[lang];
+    var lines = tot.items.map(function (i, n) { return (n + 1) + '. ' + L(i.p) + ' x ' + i.q + ' = ' + money(i.line); });
+    var out = [m.greet, m.order, '', '*' + m.details + '*'];
+    out = out.concat(lines);
+    out.push('', m.sub + ': ' + money(tot.sub));
+    if (tot.disc) out.push(m.disc + ' (' + tot.pct + '%): -' + money(tot.disc));
+    out.push('*' + m.fin + ': ' + money(tot.total) + '*', '', m.confirm);
     return out.join('\n');
   }
+
   function buildEnqMsg(f) {
     var m = MSG[lang];
-    return [m.greet, m.enq, '', '👤 ' + m.name + ': ' + f.name, '📞 ' + m.mobile + ': ' + f.mobile, '📌 ' + m.subj + ': ' + f.type, '💬 ' + m.msg + ': ' + f.msg, '', m.thxE].join('\n');
+    return [m.enq, '', m.name + ': ' + f.name, m.mobile + ': ' + f.mobile, m.subj + ': ' + f.type, m.msg + ': ' + f.msg].join('\n');
   }
   var thanksType = '';
   function showThanks(type) {
@@ -334,7 +343,7 @@
   }
   function renderFeatures() {
     var el = $('#featRow'); if (!el) return;
-    var items = [[IC.star, 'ft1'], [IC.tag, 'ft2'], [IC.truck, 'ft3'], [IC.shield, 'ft4']];
+    var items = [[IC.star, 'ft1'], [IC.tag, 'ft2'], [IC.bag, 'ft5'], [IC.shield, 'ft4']];
     el.innerHTML = items.map(function (i) { return '<div class="feat reveal"><div class="ic">' + i[0] + '</div><div><h4>' + t(i[1] + '_t') + '</h4><p>' + t(i[1] + '_p') + '</p></div></div>'; }).join('');
   }
   function catArt(c) { return '<img src="' + c.img + '" alt="" loading="lazy">'; }
@@ -350,7 +359,7 @@
   /* ---------- page: home ---------- */
   function initHome() {
     var kinds = ['crackers', 'fancy', 'damu'];
-    $$('.slide-art').forEach(function (el, i) { el.innerHTML = catArt(catOf(kinds[i])); });
+    $$('.slide-art').forEach(function (el, i) { el.innerHTML = '<img src="images/banners/slide' + (i + 1) + '.jpg" alt="Happy Diwali">'; });
     var slides = $$('.slide'), dots = $('#dots'), cur = 0, timer;
     dots.innerHTML = slides.map(function (_, i) { return '<button type="button" aria-label="slide ' + (i + 1) + '"></button>'; }).join('');
     var ds = $$('button', dots);
@@ -418,12 +427,6 @@
 
   /* ---------- page: cart ---------- */
   function initCart() {
-    var form = { name: $('#cName'), mobile: $('#cMobile'), addr: $('#cAddr'), note: $('#cNote') };
-    var saved = LSget('fb_cust', {});
-    form.name.value = saved.name || ''; form.mobile.value = saved.mobile || ''; form.addr.value = saved.addr || '';
-    function mode() { return ($('input[name=mode]:checked') || {}).value || 'delivery'; }
-    function toggleAddr() { $('#addrWrap').hidden = mode() !== 'delivery'; }
-    $$('input[name=mode]').forEach(function (r) { r.onchange = toggleAddr; }); toggleAddr();
     function render() {
       var tot = totals(), has = tot.items.length > 0;
       $('#cartEmpty').hidden = has; $('#cartLayout').hidden = !has;
@@ -431,51 +434,22 @@
       $('#sumCount').textContent = tot.count; $('#sumSub').textContent = money(tot.sub);
       $('#rowDisc').hidden = !tot.disc; $('#sumDiscLbl').textContent = t('sum_disc') + ' (' + (tot.pct + tot.cpct) + '%)'; $('#sumDisc').textContent = '-' + money(tot.disc);
       $('#sumTotal').textContent = money(tot.total);
-      var nt = nextTier(tot.sub), hint = $('#hint');
-      if (!has) hint.hidden = true;
-      else { hint.hidden = false; hint.textContent = nt ? t('tier_hint').replace('{amt}', money(nt.min - tot.sub)).replace('{pct}', nt.pct) : t('tier_got'); }
-      if (coupon) { $('#cMsg').textContent = t('coupon_ok').replace('{p}', CONFIG.coupons[coupon] || 0); $('#cMsg').style.color = '#6ee7a1'; $('#coupon').value = coupon; }
       var sg = $('#suggGrid');
       if (sg) sg.innerHTML = getProducts().filter(function (p) { return p.price && !cart[p.id] && FEATURED_IDS.indexOf(p.id) > -1; }).slice(0, 4).map(card).join('');
       observeReveal();
     }
     cartHooks.push(render); renderers.push(render);
-    $('#applyCoupon').onclick = function () {
-      var code = $('#coupon').value.trim().toUpperCase();
-      if (CONFIG.coupons[code]) { coupon = code; saveCart(); } else { coupon = ''; saveCart(); $('#cMsg').textContent = t('coupon_bad'); $('#cMsg').style.color = '#ff8da1'; }
-    };
     $('#clearCart').onclick = function () { cart = {}; coupon = ''; saveCart(); };
-    form.name.addEventListener('blur', function () { validName(form.name); });
-    form.mobile.addEventListener('blur', function () { validMobile(form.mobile); });
     $('#orderBtn').onclick = function () {
-      var ok = validName(form.name), ok2 = validMobile(form.mobile), ok3 = true;
-      if (mode() === 'delivery') { ok3 = form.addr.value.trim().length >= 5; fieldErr(form.addr, ok3 ? '' : 'err_addr'); }
-      if (!(ok && ok2 && ok3)) { toast(t(!ok ? 'err_name' : !ok2 ? 'err_mobile' : 'err_addr'), true); return; }
       var tot = totals(); if (!tot.items.length) return;
-      var f = { name: form.name.value.trim(), mobile: form.mobile.value.trim(), addr: form.addr.value.trim(), note: form.note.value.trim(), mode: mode() };
-      LSset('fb_cust', { name: f.name, mobile: f.mobile, addr: f.addr });
-      window.open(waLink(buildOrderMsg(f, tot)), '_blank');
+      window.open(waLink(buildOrderMsg(tot)), '_blank');
       showThanks('order');
     };
-    if (location.hash === '#details') setTimeout(function () { var d = $('#details'); if (d) d.scrollIntoView(); }, 400);
+    
   }
 
   /* ---------- page: contact ---------- */
   function initContact() {
-    var n = $('#eName'), m = $('#eMobile'), msg = $('#eMsg'), ty = $('#eType');
-    renderers.push(function () {
-      var cv = ty.value || '0';
-      ty.innerHTML = [['type_enq'], ['type_bulk'], ['type_other']].map(function (o, i) { return '<option value="' + i + '">' + t(o[0]) + '</option>'; }).join(''); ty.value = cv;
-    });
-    n.addEventListener('blur', function () { validName(n); });
-    m.addEventListener('blur', function () { validMobile(m); });
-    $('#enqForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var a = validName(n), b = validMobile(m), c = msg.value.trim().length >= 2; fieldErr(msg, c ? '' : 'err_msg');
-      if (!(a && b && c)) { toast(t(!a ? 'err_name' : !b ? 'err_mobile' : 'err_msg'), true); return; }
-      window.open(waLink(buildEnqMsg({ name: n.value.trim(), mobile: m.value.trim(), type: ty.options[ty.selectedIndex].text, msg: msg.value.trim() })), '_blank');
-      showThanks('enq'); e.target.reset();
-    });
     renderers.push(function () { var h = $('#hoursTxt'); if (h) h.textContent = L(CONFIG.hours); });
     var BR = ['Sai+Hospital+Sane+Chowk+Pune', 'Cotton+King+Krishnanagar+Pune'], mf = $('#mapFrame');
     function showMap(i) { if (!mf) return; mf.src = 'https://maps.google.com/maps?q=' + BR[i] + '&z=16&output=embed'; $$('.mtab').forEach(function (b, k) { b.classList.toggle('active', k === i); }); }
@@ -494,7 +468,7 @@
       });
     }, { threshold: .4 });
     cs.forEach(function (c) { cio.observe(c); });
-    var art = $('#aboutArt'); if (art) art.innerHTML = '<img src="images/banners/about.svg" alt="फटाका बाजार">';
+    var art = $('#aboutArt'); if (art) art.innerHTML = '<img src="images/banners/about-fireworks.jpg" alt="Fataka Bazaar" loading="lazy">';
     renderers.push(renderFeatures);
   }
 
