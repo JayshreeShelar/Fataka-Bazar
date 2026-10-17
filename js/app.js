@@ -299,8 +299,8 @@
 
   /* ---------- WhatsApp message templates ---------- */
   var MSG = {
-    mr: { greet: '*शुभ दिवाळी!*', hello: 'शुभ दिवाळी! नमस्कार, मला फटाक्यांची चौकशी करायची आहे. कृपया उपलब्ध माल व दर कळवावेत.', order: '*फटाका बाजार होलसेल डेपो* – नवीन ऑर्डर', enq: '*फटाका बाजार होलसेल डेपो* – चौकशी', name: 'नाव', mobile: 'मोबाईल', opt: 'पर्याय', del: 'डिलिव्हरी', pick: 'पिकअप', addr: 'पत्ता', details: 'ऑर्डर तपशील', sub: 'एकूण किंमत', disc: 'सवलत', fin: 'अंतिम रक्कम', note: 'सूचना', subj: 'विषय', msg: 'संदेश', confirm: 'कृपया उपलब्धता, डिलिव्हरी/पिकअप व पेमेंटची माहिती कळवावी.', thxO: '', thxE: '' },
-    en: { greet: '*Happy Diwali!*', hello: 'Happy Diwali! Hello, I would like to enquire about firecrackers. Please share the available items and rates.', order: '*Fataka Bazaar Wholesale Depot* – New Order', enq: '*Fataka Bazaar Wholesale Depot* – Enquiry', name: 'Name', mobile: 'Mobile', opt: 'Preference', del: 'Delivery', pick: 'Pickup', addr: 'Address', details: 'Order details', sub: 'Subtotal', disc: 'Discount', fin: 'Final amount', note: 'Note', subj: 'Subject', msg: 'Message', confirm: 'Please confirm availability, delivery/pickup and payment details.', thxO: '', thxE: '' }
+    mr: { greet: '*शुभ दिवाळी!*', hello: 'शुभ दिवाळी! नमस्कार, मला फटाक्यांची चौकशी करायची आहे. कृपया उपलब्ध माल व दर कळवावेत.', order: '*फटाका बाजार होलसेल डेपो* – नवीन ऑर्डर', enq: '*फटाका बाजार होलसेल डेपो* – चौकशी', name: 'नाव', mobile: 'मोबाईल', opt: 'पर्याय', del: 'डिलिव्हरी', pick: 'पिकअप', addr: 'पत्ता', details: 'ऑर्डर तपशील', sub: 'एकूण किंमत', disc: 'सवलत', fin: 'अंतिम रक्कम', note: 'सूचना', subj: 'विषय', msg: 'संदेश', confirm: 'कृपया पेमेंटची माहिती कळवावी.', thxO: '', thxE: '' },
+    en: { greet: '*Happy Diwali!*', hello: 'Happy Diwali! Hello, I would like to enquire about firecrackers. Please share the available items and rates.', order: '*Fataka Bazaar Wholesale Depot* – New Order', enq: '*Fataka Bazaar Wholesale Depot* – Enquiry', name: 'Name', mobile: 'Mobile', opt: 'Preference', del: 'Delivery', pick: 'Pickup', addr: 'Address', details: 'Order details', sub: 'Subtotal', disc: 'Discount', fin: 'Final amount', note: 'Note', subj: 'Subject', msg: 'Message', confirm: 'Please confirm payment details.', thxO: '', thxE: '' }
   };
   function buildOrderMsg(tot) {
     var m = MSG[lang];
@@ -445,7 +445,7 @@
       window.open(waLink(buildOrderMsg(tot)), '_blank');
       showThanks('order');
     };
-    
+
   }
 
   /* ---------- page: contact ---------- */
